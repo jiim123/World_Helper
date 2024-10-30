@@ -96,7 +96,7 @@ export default function ChatInterface() {
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId] = useState<string>(initialConversationId);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -765,7 +765,7 @@ const MessageContent: React.FC<{ content: string }> = ({ content }) => {
     <div className="flex items-center gap-2">
       <input
         ref={inputRef}
-        autoFocus
+  autoFocus
         type="text"
         value={inputMessage}
         onChange={handleInputChange}
