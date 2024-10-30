@@ -1,27 +1,24 @@
-# React example of minikit
+# World Helper
 
-Apart from a frontend, you'll need a backend, this template contains an example of that as well
+World Helper is an AI-powered chat assistant designed to help users navigate and understand the World ecosystem. 
 
-## To run, install:
+## Key Features
+- Provides real-time assistance with World ID verifications and Orb scanning
+- Offers guidance on World App features and functionality
+- Assists developers with integration and documentation
+- Supports code snippets with syntax highlighting
+- Persists chat history locally
+- Mobile-responsive design
 
-- deps, `cd frontend;pnpm i;cd -;cd backend;pnpm i`
-- ngrok - Create a free ngrok account, follow the official [docs](https://ngrok.com/docs/getting-started/)
-- nginx - use you favorite package manager :)
+## Technical Capabilities
+- Local storage for message persistence
+- Markdown-style formatting
+- Cross-tab synchronization
+- Mobile-optimized UI
+- Error handling and input validation
+- Secure message sanitization
 
-### nginx setup
+## Resources
+Links to official World documentation, whitepaper, and community platforms are integrated within the interface.
 
-To serve multiple localhost applications through a single ngrok tunnel (only one available for free-tier users), you can use nginx as a reverse proxy. Follow the steps below to set it up:
-
-### Run nginx
-
-Use the config provided in the root of this repo
-`sudo nginx -c full/path/to/this/repo/nginx.conf`
-or, if you run the command from the root dir
-`sudo nginx -c $(pwd)/nginx.conf`
-
-To stop nginx run `sudo nginx -s stop`
-
-### Tunnel through Ngrok
-
-`ngrok http 8080`
-The port doesn't matter, make sure it's the `listen` one from nginx config
+*Note: This is an independent, community-driven project and is not officially affiliated with World or Tools for Humanity.*
