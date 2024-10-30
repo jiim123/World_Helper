@@ -1,12 +1,22 @@
+"use client"; // Required for Next.js
+
+import { ReactNode, useEffect, useState } from "react";
 import { MiniKit } from "@worldcoin/minikit-js";
-import { ReactNode, useEffect } from "react";
 
 export default function MiniKitProvider({ children }: { children: ReactNode }) {
+  const [isMiniKitInstalled, setIsMiniKitInstalled] = useState(false);
+
   useEffect(() => {
-    MiniKit.install();
+    if (typeof window !== "undefined") {
+      MiniKit.install();
+      setIsMiniKitInstalled(MiniKit.isInstalled());
+    }
   }, []);
 
-  console.log("Is MiniKit installed correctly? ", MiniKit.isInstalled());
-
-  return <>{children}</>;
+  return (
+    <>
+      {isMiniKitInstalled ? "MiniKit is installed!" : "MiniKit is not installed."}
+      {children}
+    </>
+  );
 }
