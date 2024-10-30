@@ -1,10 +1,10 @@
 {
   "name": "world-helper",
-  "private": true,
+  "private": false,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "next dev",
     "build": "tsc -b && vite build && next build",
     "lint": "eslint .",
     "preview": "vite preview",
