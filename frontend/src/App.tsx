@@ -1,11 +1,15 @@
-import { PayBlock } from "./components/Pay";
-import { VerifyBlock } from "./components/Verify";
+import { useEffect } from 'react';
+import { MiniKit } from '@worldcoin/minikit-js';
+import ChatInterface from '@/@components/ChatInterface';
 
 export default function App() {
+  useEffect(() => {
+    // Initialize MiniKit
+    MiniKit.install();
+    console.log('MiniKit installed:', MiniKit.isInstalled());
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 gap-y-3">
-      <VerifyBlock />
-      <PayBlock />
-    </main>
+    <ChatInterface />
   );
 }

@@ -1,0 +1,318 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 215 20.2% 65.1%;
+    --radius: 0.5rem;
+  }
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+  font-family: "Schibsted Grotesk", sans-serif;
+  font-optical-sizing: auto;
+}
+
+@layer components {
+
+    /* Message animations */
+  .message-enter {
+      @apply opacity-0 translate-y-2;
+  }
+  
+    /* Custom scrollbar for messages container */
+    .messages-container {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.938) transparent;
+  }
+
+  .messages-container::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  .messages-container::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .messages-container::-webkit-scrollbar-thumb {
+    @apply bg-black/20 rounded-full;
+  }
+
+  .message-enter-active {
+      @apply opacity-100 translate-y-0 transition-all duration-300 ease-out;
+  }
+
+  .chat-container {
+    @apply font-["Archivo"] font-light flex flex-col min-h-screen bg-gray-100;
+  }
+
+  .message-bubble {
+    @apply relative max-w-[80%] px-4 py-1 rounded-2xl break-words;
+  }
+
+  .message-bubble.user {
+    @apply bg-[#2c2c2c] text-white rounded-br-none text-left;
+  }
+
+  .message-bubble.bot {
+    @apply bg-white text-[#010101] max-w-[50%] leading-[140%] rounded-bl-none shadow-sm text-left;
+  }
+
+  .message-input {
+    @apply font-["Archivo"] font-light text-base flex-1 p-4 border border-gray-200 
+           rounded-sm outline-none transition-all duration-200
+           focus:border-black focus:shadow-[0_0_0_2px_rgba(59,130,246,0.1)];
+  }
+
+  @property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  
+  @property --gradient-angle-offset {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  
+  @property --gradient-percent {
+    syntax: "<percentage>";
+    initial-value: 5%;
+    inherits: false;
+  }
+  
+  .send-button {
+    --shiny-highlight: #6ecee6;
+    --shiny-highlight-subtle: #8ae6ff;
+    --duration: 3s;
+    
+    position: relative;
+    overflow: hidden;
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 360px;
+    color: white;
+    background: linear-gradient(rgb(68, 68, 68), black) padding-box,
+      conic-gradient(
+        from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+        transparent,
+        var(--shiny-highlight) var(--gradient-percent),
+        white calc(var(--gradient-percent) * 2),
+        var(--shiny-highlight) calc(var(--gradient-percent) * 3),
+        transparent calc(var(--gradient-percent) * 4)
+      )
+      border-box;
+    transition: --gradient-angle-offset 800ms cubic-bezier(0.25, 1, 0.5, 1),
+                --gradient-percent 800ms cubic-bezier(0.25, 1, 0.5, 1);
+    animation: gradient-angle linear infinite var(--duration);
+  }
+  
+  .send-button:disabled {
+    @apply opacity-50 cursor-not-allowed bg-gray-500;
+    animation: none;
+  }
+  
+  .send-button:not(:disabled):hover {
+    --gradient-percent: 20%;
+    --gradient-angle-offset: 95deg;
+  }
+  
+  @keyframes gradient-angle {
+    to {
+      --gradient-angle: 360deg;
+    }
+  }
+  
+  /* Inner shimmer effect */
+  .send-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      -50deg,
+      transparent,
+      var(--shiny-highlight),
+      transparent
+    );
+    opacity: 0;
+    transition: opacity 300ms;
+  }
+  
+  .send-button:not(:disabled):hover::after {
+    opacity: 0.4;
+  }
+
+  .typing-indicator {
+    @apply flex gap-2 p-2;
+  }
+
+  .typing-dot {
+    @apply w-2 h-2 bg-gray-400 rounded-full animate-bounce;
+  }
+
+  .markdown-content {
+    @apply leading-relaxed;
+  }
+
+  .markdown-content h1 {
+    @apply text-2xl my-2;
+  }
+
+  .markdown-content h2 {
+    @apply text-xl my-2;
+  }
+
+  .markdown-content h3 {
+    @apply text-lg my-2;
+  }
+
+  .markdown-content p {
+    @apply my-1;
+  }
+
+  .markdown-content code {
+    @apply bg-black p-1 px-2 rounded font-mono text-sm;
+  }
+
+  .markdown-content pre {
+    @apply bg-black/5 p-4 rounded overflow-x-auto;
+  }
+
+  .markdown-content a {
+    @apply text-blue-600 font-normal no-underline hover:underline;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.drawer-view-enter {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.25rem);
+  }
+}
+
+/* Dark mode styles */
+.dark {
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+  --popover: 224 71% 4%;
+  --popover-foreground: 215 20.2% 65.1%;
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 1.2%;
+  --secondary: 222.2 47.4% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 216 34% 17%;
+}
+
+.logo-container {
+  @apply flex justify-start items-center py-2 px-4;
+  
+}
+
+.logo-image {
+  @apply h-8 w-auto object-contain select-none;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 640px) {
+  .message-bubble {
+    @apply max-w-[90%];
+  }
+
+  .message-input {
+    @apply text-lg p-4;
+  }
+
+  .send-button {
+    @apply p-3;
+  }
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .fixed-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  
+  .fixed-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+}
+}
